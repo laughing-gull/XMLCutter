@@ -24,5 +24,17 @@ namespace XMLCutter
         {
             InitializeComponent();
         }
+
+        private void SelectXML_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SplitXML_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+
     }
 }

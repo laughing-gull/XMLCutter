@@ -7,6 +7,28 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="600"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+
+
+        <StackPanel Name="controlsStackPanel" Orientation="Horizontal"  Grid.Row="0">
+            <Button Name="selectXML" Content="Select XML" Margin="20" Click="SelectXML_Click"/>
+            <Button Name="cutFile" Content="Cut XML" Margin="20" Click="SplitXML_Click"/>
+        </StackPanel>
+
+        <TreeView Name="xmlTreeView" Margin="25" Grid.Row="1" />
+
+        <ListBox x:Name="selectAttributes" SelectionMode="Multiple" Margin="20" Grid.Column="1" Grid.RowSpan="2">
+
+        </ListBox>
 
     </Grid>
+
 </Window>
