@@ -12,8 +12,11 @@ namespace XMLCutter
 {
     class XmlManager
     {
+        private bool cut;
         private XDocument document;
         private XElement root;
+        private XElement matchingElements;
+        private XElement nonMatchingElements;
         private List<XAttribute> uniqueAttributes;
         private OpenFileDialog openFileDialog;
 
@@ -22,20 +25,36 @@ namespace XMLCutter
             this.openFileDialog = openFileDialog;
             this.document = XDocument.Load(this.openFileDialog.FileName);
             this.root = this.document.Root;
-            findUniqueAttributes(this.root);
+            FindUniqueAttributes(this.root);
+            this.cut = false;
         }
 
-        public List<XAttribute> getUniqueAttributes()
+        public List<XAttribute> GetUniqueAttributes()
         {
             return this.uniqueAttributes;
         }
 
-        public XElement getRoot()
+        public XElement GetRoot()
         {
             return this.root;
         }
 
-        private void findUniqueAttributes(XElement root)
+        public XElement GetMatchingElements()
+        {
+#pragma warning disable CS8603 // Possible null reference return.
+            return cut ? this.matchingElements : null;
+#pragma warning restore CS8603 // Possible null reference return.
+        }
+
+        public XElement GetNonMatchingElements()
+        {
+#pragma warning disable CS8603 // Possible null reference return.
+            return cut ? this.nonMatchingElements : null;
+#pragma warning restore CS8603 // Possible null reference return.
+        }
+
+
+        private void FindUniqueAttributes(XElement root)
         {
             // Create a HashSet to store the string representations of the attributes.
             // The HashSet automatically prevents duplicates.
@@ -77,9 +96,43 @@ namespace XMLCutter
             this.uniqueAttributes = attributes;
         }
 
+        public void PopulateMatchingAndNonMatchingElements(List<XAttribute> selectedAttributes)
+        {
+            int counter = 0;
+            this.matchingElements = new XElement(this.root.Name);
+            this.nonMatchingElements = new XElement(this.root.Name);
 
+            // Loop through all the parent and child elements in the root element.
+            foreach (XElement parent in root.Elements())
+            {
+                foreach (XElement child in parent.Elements())
+                {
+                    // Loop through all the attributes of the child element.
+                    foreach (XAttribute attribute in child.Attributes())
+                    {
+                        foreach(XAttribute selectedAttribute in selectedAttributes)
+                        {
+                            //Deptermine if the current selected attribute matches
+                            //the current child attribute
+                            if(attribute.ToString().Equals(selectedAttribute.ToString())) counter++;
+                        }
+                    }
+                }
+                if (counter == selectedAttributes.Count)
+                {
+                    this.matchingElements.Add(parent);
+                    counter = 0;
+                }
+                else
+                {
+                    this.nonMatchingElements.Add(parent);
+                    counter = 0;
+                }
+            }
 
+            this.cut = true;
 
+        }
 
     }
 }
