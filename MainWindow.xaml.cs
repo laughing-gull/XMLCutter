@@ -44,7 +44,7 @@ namespace XMLCutter
             {
                 this.selectAttributes.Items.Add(xAttribute);
             }
-
+            this.xmlTextBlock.Text = this.xmlManager.getRoot().ToString();
             
         }
 

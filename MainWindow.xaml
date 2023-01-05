@@ -23,7 +23,8 @@
             <Button Name="cutFile" Content="Cut XML" Margin="20" Click="SplitXML_Click"/>
         </StackPanel>
 
-        <TreeView Name="xmlTreeView" Margin="25" Grid.Row="1" />
+        <TextBox Margin="25" Grid.Row="1" Name="xmlTextBlock" IsReadOnly="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"/>
+
 
         <ListBox x:Name="selectAttributes" SelectionMode="Multiple" Margin="20" Grid.Column="1" Grid.RowSpan="2">
 

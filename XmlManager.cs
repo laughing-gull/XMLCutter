@@ -30,6 +30,11 @@ namespace XMLCutter
             return this.uniqueAttributes;
         }
 
+        public XElement getRoot()
+        {
+            return this.root;
+        }
+
         private void findUniqueAttributes(XElement root)
         {
             // Create a HashSet to store the string representations of the attributes.
